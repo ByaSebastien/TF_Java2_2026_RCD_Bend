@@ -18,3 +18,8 @@ spring:
     locations: classpath:migration
     default-schema: public
     schemas: public
+
+jwt:
+  secret: ${JWT_SECRET}
+  accessTokenValidity: 900
+  refreshTokenValidity: 604800
