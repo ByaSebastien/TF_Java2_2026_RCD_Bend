@@ -1,0 +1,11 @@
+insert into product (id, name, description, price) values
+(1, 'Product 1', 'Description for Product 1', 1099),
+(2, 'Product 2', 'Description for Product 2', 2099),
+(3, 'Product 3', 'Description for Product 3', 3099),
+(4, 'Product 4', 'Description for Product 4', 4099),
+(5, 'Product 5', 'Description for Product 5', 5099),
+(6, 'Product 6', 'Description for Product 6', 6099),
+(7, 'Product 7', 'Description for Product 7', 7099),
+(8, 'Product 8', 'Description for Product 8', 8099),
+(9, 'Product 9', 'Description for Product 9', 9099),
+(10, 'Product 10', 'Description for Product 10', 10099);

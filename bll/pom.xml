@@ -22,5 +22,9 @@
             <groupId>be.bstorm</groupId>
             <artifactId>dal</artifactId>
         </dependency>
+        <dependency>
+            <groupId>be.bstorm</groupId>
+            <artifactId>dl</artifactId>
+        </dependency>
     </dependencies>
 </project>

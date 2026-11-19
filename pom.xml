@@ -25,6 +25,7 @@
         <module>api</module>
         <module>bll</module>
         <module>dal</module>
+        <module>dl</module>
     </modules>
     <scm>
         <connection/>
@@ -106,6 +107,11 @@
                 <artifactId>dal</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>be.bstorm</groupId>
+                <artifactId>dl</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
 
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -120,4 +126,22 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- Hérité par tous les modules : active Lombok à la compilation (obligatoire depuis JDK 23) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
