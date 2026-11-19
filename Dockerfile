@@ -6,6 +6,7 @@ COPY ./pom.xml ./
 COPY ./api/pom.xml ./api/pom.xml
 COPY ./bll/pom.xml ./bll/pom.xml
 COPY ./dal/pom.xml ./dal/pom.xml
+COPY ./dl/pom.xml ./dl/pom.xml
 
 RUN mvn dependency:go-offline
 

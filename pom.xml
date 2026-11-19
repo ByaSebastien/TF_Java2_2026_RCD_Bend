@@ -25,6 +25,7 @@
         <module>api</module>
         <module>bll</module>
         <module>dal</module>
+        <module>dl</module>
     </modules>
     <scm>
         <connection/>
@@ -104,6 +105,11 @@
             <dependency>
                 <groupId>be.bstorm</groupId>
                 <artifactId>dal</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>be.bstorm</groupId>
+                <artifactId>dl</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
