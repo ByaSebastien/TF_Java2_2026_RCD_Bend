@@ -26,7 +26,7 @@ public class AuthController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/login")
     public ResponseEntity<UserTokenResponse> login(@Valid @RequestBody LoginRequest request) {
-        User user = authService.login(request.username(), request.password());
+        User user = authService.login(request.email(), request.password());
         UserTokenResponse response = mapUser(user);
         log.info("User {} logged in successfully", user.getUsername());
         return ResponseEntity.ok(response);

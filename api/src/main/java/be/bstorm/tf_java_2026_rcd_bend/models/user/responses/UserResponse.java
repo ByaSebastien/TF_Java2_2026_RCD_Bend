@@ -5,13 +5,13 @@ import be.bstorm.tf_java_2026_rcd_bend.models.role.responses.RoleResponse;
 
 public record UserResponse(
         Integer id,
-        String username,
+        String email,
         RoleResponse role
 ) {
     public static UserResponse fromUser(User user){
         return new UserResponse(
                 user.getId(),
-                user.getUsername(),
+                user.getEmail(),
                 RoleResponse.fromRole(user.getRole())
         );
     }

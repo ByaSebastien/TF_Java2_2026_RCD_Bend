@@ -24,8 +24,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "user_")
-@NoArgsConstructor @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false, exclude = {"password"}) @ToString(exclude = {"password"})
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false, exclude = {"password"})
+@ToString(exclude = {"password"})
 public class User extends BaseEntity implements UserDetails {
 
     @Getter
@@ -33,11 +35,7 @@ public class User extends BaseEntity implements UserDetails {
     private Integer id;
 
     @Getter @Setter
-    @Column(nullable = false)
-    private String username;
-
-    @Getter @Setter
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Getter @Setter
@@ -45,20 +43,16 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Getter @Setter
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE}
-    )
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Role role;
 
-    public User(String username, String password) {
-        this();
-        this.username = username;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public User(String username, String password, Role role) {
-        this(username, password);
+    public User(String email, String password, Role role) {
+        this(email, password);
         this.role = role;
     }
 
@@ -68,4 +62,31 @@ public class User extends BaseEntity implements UserDetails {
                 new SimpleGrantedAuthority(role.getName())
         );
     }
+
+    //- Authentification by Email
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
 }

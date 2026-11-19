@@ -20,20 +20,20 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User login(String username, String password) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
+    public User login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User with email " + email + " not found"));
 
         if (!passwordEncoder.matches(password, user.getPassword())){
-            throw new UserInvalidPasswordException("Invalid password for user " + username);
+            throw new UserInvalidPasswordException("Invalid password for user " + email);
         }
 
         return user;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found"));
     }
 }
