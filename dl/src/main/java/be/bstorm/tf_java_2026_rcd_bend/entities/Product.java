@@ -23,4 +23,10 @@ public class Product {
 
     @Getter @Setter
     private int price;
+
+    public Product(String name, String description, int price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 }
