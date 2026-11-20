@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "_user")
+@Table(name = "userexo")
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode @ToString(exclude = "password")
 public class User {
