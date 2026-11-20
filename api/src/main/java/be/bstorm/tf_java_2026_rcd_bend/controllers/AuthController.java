@@ -19,26 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-  private final AuthService authService;
-  private final JwtUtil jwtUtil;
+    private final AuthService authService;
+    private final JwtUtils jwtUtils;
 
-  // @PreAuthorize("isAnonymous()")
-  // on peut changer UserRegisterRequest en UserRequest. A voir avec team login
-  @PostMapping("/auth/register")
-  public ResponseEntity<UserTokenResponse> register(
+    @PreAuthorize("isAnonymous()")
+    @PostMapping("/login")
+    public ResponseEntity<UserTokenResponse> login(@Valid @RequestBody LoginRequest request) {
+        User user = authService.login(request.email(), request.password());
+        UserTokenResponse response = mapUser(user);
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping("/register")
+  	public ResponseEntity<UserTokenResponse> register(
       @Valid @RequestBody UserRegisterRequest request) {
 
-    User user = authService.register(request.toUser());
-    String token = jwtUtil.generateToken(user);
+	    User user = authService.register(request.toUser());
+	    String token = jwtUtil.generateToken(user);
+	
+	    UserTokenResponse response = new UserTokenResponse(UserResponse.fromUser(user), token);
+	
+	    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
 
-    UserTokenResponse response = new UserTokenResponse(UserResponse.fromUser(user), token);
-
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
-  }
-
-  // si email existe déjà
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<String> handleEmailAlreadyUsed(IllegalArgumentException e) {
-    return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-  }
+    private UserTokenResponse mapUser(User user) {
+        UserResponse userResponse = UserResponse.fromUser(user);
+        String token = jwtUtils.generateToken(user);
+        String refreshToken = jwtUtils.generateRefreshToken(user);
+        return new UserTokenResponse(userResponse, token, refreshToken);
+    }
 }
