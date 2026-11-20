@@ -41,7 +41,7 @@ public class JwtUtils {
         return jwtBuilder
                 .subject(user.getUsername())
                 .claim("id", user.getId())
-                .claim("role", user.getRole().getName())
+                .claim("role", user.getRole().name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenValidity * 1000))
                 .compact();
@@ -77,7 +77,7 @@ public class JwtUtils {
         return jwtBuilder
                 .subject(user.getUsername())
                 .claim("id", user.getId())
-                .claim("role", user.getRole().getName())
+                .claim("role", user.getRole().name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + refreshTokenValidity * 1000))
                 .compact();

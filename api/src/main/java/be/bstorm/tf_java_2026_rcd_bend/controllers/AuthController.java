@@ -1,16 +1,17 @@
 package be.bstorm.tf_java_2026_rcd_bend.controllers;
 
 import be.bstorm.tf_java_2026_rcd_bend.entities.User;
+import be.bstorm.tf_java_2026_rcd_bend.models.user.requests.LoginRequest;
 import be.bstorm.tf_java_2026_rcd_bend.models.user.requests.UserRegisterRequest;
 import be.bstorm.tf_java_2026_rcd_bend.models.user.responses.UserResponse;
 import be.bstorm.tf_java_2026_rcd_bend.models.user.responses.UserTokenResponse;
 import be.bstorm.tf_java_2026_rcd_bend.services.AuthService;
-import be.bstorm.tf_java_2026_rcd_bend.utils.JwtUtil;
+import be.bstorm.tf_java_2026_rcd_bend.utils.JwtUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,10 @@ public class AuthController {
       @Valid @RequestBody UserRegisterRequest request) {
 
 	    User user = authService.register(request.toUser());
-	    String token = jwtUtil.generateToken(user);
+	    String token = jwtUtils.generateToken(user);
+        String refreshToken = jwtUtils.generateRefreshToken(user);
 	
-	    UserTokenResponse response = new UserTokenResponse(UserResponse.fromUser(user), token);
+	    UserTokenResponse response = new UserTokenResponse(UserResponse.fromUser(user), token, refreshToken);
 	
 	    return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
