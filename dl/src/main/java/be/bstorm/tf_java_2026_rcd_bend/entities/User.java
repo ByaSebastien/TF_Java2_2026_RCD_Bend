@@ -1,28 +1,28 @@
-
 package be.bstorm.tf_java_2026_rcd_bend.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Table(name = "Exo")
-@Getter
-@Setter
-@NoArgsConstructor
+@Table(name = "userexo")
+@NoArgsConstructor @AllArgsConstructor
+@EqualsAndHashCode @ToString(exclude = "password")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false, unique = true, length = 200)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    private Integer id;
+
+    @Column(nullable = false, length = 200)
+    @Getter @Setter
     private String email;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 200)
+    @Getter @Setter
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
+    @Getter @Setter
     private Role role;
 }
