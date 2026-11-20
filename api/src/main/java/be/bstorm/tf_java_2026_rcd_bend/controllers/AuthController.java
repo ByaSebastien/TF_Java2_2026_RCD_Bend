@@ -23,7 +23,8 @@ public class AuthController {
   private final JwtUtil jwtUtil;
 
   // @PreAuthorize("isAnonymous()")
-  @PostMapping("/register")
+  // on peut changer UserRegisterRequest en UserRequest. A voir avec team login
+  @PostMapping("/auth/register")
   public ResponseEntity<UserTokenResponse> register(
       @Valid @RequestBody UserRegisterRequest request) {
 
